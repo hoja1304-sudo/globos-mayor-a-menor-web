@@ -1,6 +1,8 @@
 const FAMILIES_DEFAULT = { min: 1, max: 99, label: "De 1 a 99" };
 const MIN_BALLOONS = 2;
 const MAX_BALLOONS = 10;
+const BALLOON_WIDTH_MAX = 63;
+const BALLOON_HEIGHT_MAX = 116;
 const MAZE_WALLS = [
   { left: 8, top: 18, width: 30, height: 4 },
   { left: 58, top: 18, width: 30, height: 4 },
@@ -187,8 +189,8 @@ function moveBalloons() {
   }
 
   const rect = els.stage.getBoundingClientRect();
-  const maxX = Math.max(rect.width - 126, 80);
-  const maxY = Math.max(rect.height - 232, 120);
+  const maxX = Math.max(rect.width - BALLOON_WIDTH_MAX, 80);
+  const maxY = Math.max(rect.height - BALLOON_HEIGHT_MAX, 120);
 
   state.balloons.forEach((balloon) => {
     if (balloon.popped) return;
@@ -213,8 +215,8 @@ function moveBalloons() {
 }
 
 function bounceFromMaze(balloon, stageRect) {
-  const balloonWidth = Math.min(Math.max(stageRect.width * 0.14, 82), 126);
-  const balloonHeight = Math.min(Math.max(stageRect.width * 0.24, 148), 232);
+  const balloonWidth = Math.min(Math.max(stageRect.width * 0.07, 41), BALLOON_WIDTH_MAX);
+  const balloonHeight = Math.min(Math.max(stageRect.width * 0.12, 74), BALLOON_HEIGHT_MAX);
   const body = {
     left: balloon.x + balloonWidth * 0.18,
     right: balloon.x + balloonWidth * 0.82,
