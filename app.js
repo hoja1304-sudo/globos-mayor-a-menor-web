@@ -15,6 +15,7 @@ const MAZE_WALLS = [
 
 const state = {
   family: FAMILIES_DEFAULT,
+  specialCount: false,
   balloons: [],
   score: 0,
   audio: true,
@@ -44,7 +45,7 @@ function shuffle(items) {
 function sampleValues() {
   const pool = Array.from({ length: state.family.max - state.family.min + 1 }, (_, index) => state.family.min + index);
   const limit = Math.min(MAX_BALLOONS, pool.length);
-  const count = randomInt(Math.min(MIN_BALLOONS, limit), limit);
+  const count = state.specialCount ? randomInt(2, Math.min(5, limit)) : randomInt(Math.min(MIN_BALLOONS, limit), limit);
   return shuffle(pool).slice(0, count);
 }
 
@@ -58,6 +59,7 @@ function startFamily(button) {
   const min = Number(button.dataset.min);
   const max = Number(button.dataset.max);
   state.family = { min, max, label: button.textContent.trim() };
+  state.specialCount = button.dataset.specialCount === "true";
   document.querySelectorAll(".family-button").forEach((item) => item.classList.remove("is-selected"));
   button.classList.add("is-selected");
   state.score = 0;

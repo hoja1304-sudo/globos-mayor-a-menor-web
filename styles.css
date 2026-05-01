@@ -142,6 +142,12 @@ h1 {
   grid-column: 1 / -1;
 }
 
+.family-special {
+  border-color: #d59f18;
+  background: linear-gradient(180deg, #fff4a8, var(--sun-deep));
+  color: #47350a;
+}
+
 .family-button:hover,
 .control-button:hover,
 .audio-button:hover {
