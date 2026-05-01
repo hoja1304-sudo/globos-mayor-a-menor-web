@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Globos de mayor a menor</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app" id="app">
+      <section class="screen menu-screen is-active" id="menuScreen" aria-label="Seleccion de familia">
+        <header class="hero">
+          <p class="eyebrow">Relaciones de orden</p>
+          <h1>Globos de mayor a menor</h1>
+          <p>Selecciona la familia y revienta los globos empezando por el numero mayor.</p>
+          <img class="hero-balloon" src="./assets/balloon.png" alt="" />
+        </header>
+
+        <section class="family-panel" aria-label="Selecciona la familia">
+          <h2>Selecciona la familia</h2>
+          <div class="family-grid">
+            <button class="family-button" type="button" data-min="1" data-max="9">De 1 a 9</button>
+            <button class="family-button" type="button" data-min="10" data-max="19">De 10 a 19</button>
+            <button class="family-button" type="button" data-min="20" data-max="29">De 20 a 29</button>
+            <button class="family-button" type="button" data-min="30" data-max="39">De 30 a 39</button>
+            <button class="family-button" type="button" data-min="40" data-max="49">De 40 a 49</button>
+            <button class="family-button" type="button" data-min="1" data-max="50">De 1 a 50</button>
+            <button class="family-button" type="button" data-min="50" data-max="69">De 50 a 69</button>
+            <button class="family-button" type="button" data-min="70" data-max="79">De 70 a 79</button>
+            <button class="family-button" type="button" data-min="80" data-max="89">De 80 a 89</button>
+            <button class="family-button" type="button" data-min="90" data-max="99">De 90 a 99</button>
+            <button class="family-button family-wide" type="button" data-min="1" data-max="99">De 1 a 99</button>
+          </div>
+        </section>
+
+        <button id="audioMenu" class="audio-button is-on" type="button" aria-pressed="true">
+          <span class="speaker" aria-hidden="true"></span>
+          <span class="audio-label">Audio activo</span>
+        </button>
+      </section>
+
+      <section class="screen play-screen" id="playScreen" aria-label="Juego de globos">
+        <header class="play-top">
+          <div>
+            <p class="eyebrow">Reventar de mayor a menor</p>
+            <h2 id="familyTitle">Familia: De 1 a 99</h2>
+          </div>
+          <div class="score" aria-live="polite">
+            <span>Puntos</span>
+            <strong id="scoreValue">0</strong>
+          </div>
+        </header>
+
+        <section class="stage" id="stage" aria-label="Globos con numeros"></section>
+
+        <div class="feedback" id="feedback" aria-live="polite">Selecciona el globo con el numero mayor.</div>
+
+        <div class="credit-line">Elaborado por: Alberto Jimenez Ruiz 2026.</div>
+
+        <nav class="actions" aria-label="Controles del juego">
+          <button id="restartButton" class="control-button primary" type="button">Reiniciar</button>
+          <button id="familyButton" class="control-button" type="button">Seleccionar familia</button>
+          <button id="exitButton" class="control-button" type="button">Salir</button>
+          <button id="audioPlay" class="control-button audio-control is-on" type="button" aria-pressed="true">
+            <span class="audio-label">Audio activo</span>
+          </button>
+        </nav>
+      </section>
+    </main>
+
+    <audio id="popSound" src="./assets/pinchazo-globo-revienta.mp3" preload="auto"></audio>
+    <script src="./app.js"></script>
+  </body>
+</html>
