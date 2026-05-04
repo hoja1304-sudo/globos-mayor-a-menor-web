@@ -19,6 +19,7 @@ const state = {
   balloons: [],
   score: 0,
   audio: true,
+  theme: localStorage.getItem("balloon-theme") || "light",
   voice: null,
   running: false
 };
@@ -31,7 +32,8 @@ const els = {
   score: document.querySelector("#scoreValue"),
   feedback: document.querySelector("#feedback"),
   popSound: document.querySelector("#popSound"),
-  audioButtons: [document.querySelector("#audioMenu"), document.querySelector("#audioPlay")]
+  audioButtons: [document.querySelector("#audioMenu"), document.querySelector("#audioPlay")],
+  themeButtons: [...document.querySelectorAll(".theme-button")]
 };
 
 function randomInt(min, max) {
@@ -303,6 +305,22 @@ function syncAudio() {
   });
 }
 
+function toggleTheme() {
+  state.theme = state.theme === "dark" ? "light" : "dark";
+  localStorage.setItem("balloon-theme", state.theme);
+  syncTheme();
+}
+
+function syncTheme() {
+  document.documentElement.dataset.theme = state.theme;
+  const dark = state.theme === "dark";
+  els.themeButtons.forEach((button) => {
+    button.setAttribute("aria-pressed", String(dark));
+    const label = button.querySelector(".theme-label");
+    if (label) label.textContent = dark ? "Modo claro" : "Modo oscuro";
+  });
+}
+
 document.querySelectorAll(".family-button").forEach((button) => {
   button.addEventListener("click", () => startFamily(button));
 });
@@ -327,6 +345,7 @@ document.querySelector("#exitButton").addEventListener("click", () => {
 });
 
 els.audioButtons.forEach((button) => button.addEventListener("click", toggleAudio));
+els.themeButtons.forEach((button) => button.addEventListener("click", toggleTheme));
 
 window.addEventListener("resize", () => {
   if (!els.play.classList.contains("is-active")) return;
@@ -340,4 +359,5 @@ if ("speechSynthesis" in window) {
 }
 
 syncAudio();
+syncTheme();
 moveBalloons();

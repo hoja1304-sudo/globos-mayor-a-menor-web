@@ -34,10 +34,16 @@
           </div>
         </section>
 
-        <button id="audioMenu" class="audio-button is-on" type="button" aria-pressed="true">
-          <span class="speaker" aria-hidden="true"></span>
-          <span class="audio-label">Audio activo</span>
-        </button>
+        <div class="floating-tools" aria-label="Preferencias">
+          <button class="theme-button" type="button" aria-pressed="false">
+            <span class="theme-icon" aria-hidden="true"></span>
+            <span class="theme-label">Modo oscuro</span>
+          </button>
+          <button id="audioMenu" class="audio-button is-on" type="button" aria-pressed="true">
+            <span class="speaker" aria-hidden="true"></span>
+            <span class="audio-label">Audio activo</span>
+          </button>
+        </div>
       </section>
 
       <section class="screen play-screen" id="playScreen" aria-label="Juego de globos">
@@ -62,6 +68,9 @@
           <button id="restartButton" class="control-button primary" type="button">Reiniciar</button>
           <button id="familyButton" class="control-button" type="button">Seleccionar familia</button>
           <button id="exitButton" class="control-button" type="button">Salir</button>
+          <button class="control-button theme-button" type="button" aria-pressed="false">
+            <span class="theme-label">Modo oscuro</span>
+          </button>
           <button id="audioPlay" class="control-button audio-control is-on" type="button" aria-pressed="true">
             <span class="audio-label">Audio activo</span>
           </button>
