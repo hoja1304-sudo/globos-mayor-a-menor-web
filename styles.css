@@ -18,9 +18,16 @@
   --orange-dark: #914d18;
   --sun: #ffe999;
   --sun-deep: #eec657;
-  --stage-a: #eef8f2;
-  --stage-b: #dceee7;
-  --stage-c: #cfe4df;
+  --stage-a: #fff1d6;
+  --stage-b: #ffc46f;
+  --stage-c: #f28a28;
+  --stage-accent: rgba(242, 115, 31, 0.24);
+  --stage-shadow: rgba(171, 78, 10, 0.16);
+  --wall-top: #f6a25c;
+  --wall-mid: #d9662f;
+  --wall-bottom: #a93b24;
+  --wall-mortar: rgba(255, 232, 199, 0.78);
+  --wall-line: rgba(114, 42, 23, 0.4);
   --surface-shadow: 0 26px 80px rgba(28, 67, 59, 0.16);
   --button-shadow: 0 12px 0 var(--button-side), 0 20px 34px rgba(41, 73, 63, 0.16);
   --button-shadow-hover: 0 9px 0 var(--button-side), 0 18px 30px rgba(41, 73, 63, 0.2);
@@ -51,6 +58,13 @@
   --stage-a: #162520;
   --stage-b: #10201d;
   --stage-c: #0b1715;
+  --stage-accent: rgba(92, 192, 168, 0.14);
+  --stage-shadow: rgba(15, 96, 79, 0.08);
+  --wall-top: #65453a;
+  --wall-mid: #472a24;
+  --wall-bottom: #2f1b18;
+  --wall-mortar: rgba(238, 210, 178, 0.22);
+  --wall-line: rgba(238, 210, 178, 0.22);
   --surface-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
   --button-shadow: 0 12px 0 var(--button-side), 0 22px 34px rgba(0, 0, 0, 0.26);
   --button-shadow-hover: 0 9px 0 var(--button-side), 0 18px 30px rgba(0, 0, 0, 0.32);
@@ -116,6 +130,7 @@ button {
 .menu-screen {
   grid-template-columns: minmax(0, 0.82fr) minmax(320px, 0.58fr);
   align-items: center;
+  align-content: center;
   gap: clamp(18px, 4vw, 58px);
   width: min(1220px, 100%);
   margin: 0 auto;
@@ -142,10 +157,10 @@ p {
 }
 
 h1 {
-  max-width: 11ch;
+  max-width: 12ch;
   margin-bottom: 16px;
-  font-size: clamp(3.2rem, 9vw, 7.4rem);
-  line-height: 0.88;
+  font-size: clamp(3rem, 7.4vw, 6.4rem);
+  line-height: 0.9;
   letter-spacing: 0;
 }
 
@@ -159,8 +174,8 @@ h1 {
 
 .hero-balloon {
   display: block;
-  width: clamp(140px, 22vw, 250px);
-  margin-top: clamp(20px, 4vw, 42px);
+  width: clamp(120px, 18vw, 210px);
+  margin-top: clamp(16px, 3vw, 32px);
   filter: drop-shadow(0 28px 28px rgba(16, 77, 112, 0.18));
   transform: rotate(-4deg);
 }
@@ -351,13 +366,13 @@ h1 {
   border: 1px solid var(--line);
   border-radius: 8px;
   background:
-    linear-gradient(120deg, rgba(255, 255, 255, 0.42), transparent 34%),
-    linear-gradient(230deg, rgba(15, 138, 115, 0.14), transparent 38%),
+    linear-gradient(120deg, rgba(255, 255, 255, 0.46), transparent 34%),
+    linear-gradient(230deg, var(--stage-accent), transparent 38%),
     linear-gradient(135deg, var(--stage-a) 0%, var(--stage-b) 48%, var(--stage-c) 100%);
   box-shadow:
     var(--surface-shadow),
     inset 0 1px 0 rgba(255, 255, 255, 0.54),
-    inset 0 -30px 90px rgba(15, 96, 79, 0.08);
+    inset 0 -30px 90px var(--stage-shadow);
 }
 
 .stage::before {
@@ -385,14 +400,18 @@ h1 {
 .maze-wall {
   position: absolute;
   z-index: 1;
-  border: 1px solid rgba(12, 95, 80, 0.36);
-  border-radius: 999px;
+  border: 1px solid var(--wall-line);
+  border-radius: 6px;
   background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.72), transparent 46%),
-    linear-gradient(135deg, #4ab394, #12856d);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.34), transparent 42%),
+    repeating-linear-gradient(0deg, transparent 0 15px, var(--wall-mortar) 15px 18px),
+    repeating-linear-gradient(90deg, transparent 0 36px, var(--wall-mortar) 36px 39px),
+    linear-gradient(135deg, var(--wall-top), var(--wall-mid) 54%, var(--wall-bottom));
+  background-blend-mode: screen, normal, normal, normal;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.46),
-    0 12px 24px rgba(12, 95, 80, 0.18);
+    inset 0 1px 0 rgba(255, 255, 255, 0.38),
+    inset 0 -4px 8px rgba(86, 28, 16, 0.16),
+    0 12px 24px rgba(116, 49, 21, 0.2);
   pointer-events: none;
 }
 
@@ -641,6 +660,77 @@ button:active {
   .credit-line {
     justify-self: stretch;
     text-align: center;
+  }
+}
+
+@media (min-width: 861px) and (max-height: 720px) {
+  .screen {
+    padding-block: clamp(10px, 2vh, 16px);
+  }
+
+  .menu-screen {
+    grid-template-columns: minmax(0, 0.86fr) minmax(300px, 0.54fr);
+    gap: clamp(18px, 3vw, 42px);
+  }
+
+  h1 {
+    max-width: 13ch;
+    margin-bottom: 10px;
+    font-size: clamp(2.8rem, 6.2vw, 5.35rem);
+    line-height: 0.94;
+  }
+
+  .eyebrow {
+    margin-bottom: 6px;
+  }
+
+  .hero p:last-child {
+    font-size: clamp(0.92rem, 1.5vw, 1.08rem);
+    line-height: 1.35;
+  }
+
+  .hero-balloon {
+    width: clamp(100px, 14vw, 160px);
+    margin-top: clamp(10px, 2vh, 18px);
+  }
+
+  .family-panel {
+    padding: 16px;
+  }
+
+  .family-panel h2 {
+    margin-bottom: 10px;
+    font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  }
+
+  .family-grid {
+    gap: 8px;
+  }
+
+  .family-button {
+    min-height: 36px;
+  }
+
+  .play-screen {
+    grid-template-rows: auto minmax(330px, 1fr) auto auto auto;
+    gap: 7px;
+  }
+
+  .play-top h2 {
+    font-size: clamp(1.35rem, 3vw, 2.5rem);
+  }
+
+  .stage {
+    min-height: 330px;
+  }
+
+  .feedback {
+    min-height: 28px;
+    font-size: clamp(0.95rem, 1.8vw, 1.12rem);
+  }
+
+  .control-button {
+    min-height: 40px;
   }
 }
 
