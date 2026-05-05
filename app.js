@@ -21,7 +21,8 @@ const state = {
   audio: true,
   theme: localStorage.getItem("balloon-theme") || "light",
   voice: null,
-  running: false
+  running: false,
+  missesForTarget: 0
 };
 
 const els = {
@@ -82,6 +83,7 @@ function resetGame() {
     popped: false
   }));
   state.running = true;
+  state.missesForTarget = 0;
   els.familyTitle.textContent = `Familia: ${state.family.label}`;
   updateScore();
   positionBalloons();
@@ -142,17 +144,24 @@ function chooseBalloon(id, element) {
   const expected = Math.max(...state.balloons.filter((item) => !item.popped).map((item) => item.value));
 
   if (balloon.value !== expected) {
+    state.missesForTarget += 1;
     state.score = Math.max(0, state.score - 1);
     updateScore();
     element.classList.add("is-wrong");
     window.setTimeout(() => element.classList.remove("is-wrong"), 320);
-    setFeedback(`Busca primero el numero mayor. Ahora es ${expected}.`);
-    speak(`Busca primero el numero mayor. Ahora es ${expected}.`);
+    if (state.missesForTarget >= 3) {
+      setFeedback(`Busca primero el numero mayor. Ahora es ${expected}.`);
+      speak(`Busca primero el numero mayor. Ahora es ${expected}.`);
+    } else {
+      setFeedback("Intentalo de nuevo. Busca el numero mayor que queda.");
+      speak("Intentalo de nuevo. Busca el numero mayor que queda.");
+    }
     return;
   }
 
   burstBalloon(element);
   balloon.popped = true;
+  state.missesForTarget = 0;
   state.score += 1;
   updateScore();
   playPop();
@@ -164,9 +173,8 @@ function chooseBalloon(id, element) {
     return;
   }
 
-  const next = Math.max(...remaining.map((item) => item.value));
-  setFeedback(`Muy bien. Ahora busca ${next}.`);
-  speak(`Muy bien. Ahora busca ${next}.`);
+  setFeedback("Muy bien. Sigue con el siguiente numero mayor.");
+  speak("Muy bien. Sigue con el siguiente numero mayor.");
 }
 
 function burstBalloon(element) {
